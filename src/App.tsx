@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import "./App.css";
 
-function App() {
+import { AppProvider } from "./Context";
+import Posts from "./Posts/Posts";
+import Error404 from "./Error/Error404";
+import Login from "./Login/Login";
+
+const App: React.FC = () => {
+  const routes = [
+    { path: "/posts", element: <Posts /> },
+    { path: "/login", element: <Login /> },
+    { path: "*", element: <Error404 /> },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          {routes.map((item, index) => {
+            return <Route key={index} {...item} />;
+          })}
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   );
-}
+};
 
 export default App;

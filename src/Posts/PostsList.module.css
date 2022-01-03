@@ -1,0 +1,6 @@
+.container {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 8px auto;
+}

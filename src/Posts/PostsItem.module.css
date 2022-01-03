@@ -1,0 +1,62 @@
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 8px;
+  text-align: center;
+}
+.item {
+  margin: 2px 0;
+  width: clamp(135px, 65%, 250px);
+}
+.poster {
+  border-radius: 4px;
+  width: clamp(135px, 65%, 250px);
+}
+.title {
+  font-weight: 600;
+}
+.inStock {
+  font-size: 14px;
+  color: #6c757d;
+}
+.price {
+  font-weight: 500;
+}
+.buyButton {
+  color: var(--text-color);
+  cursor: initial;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 2px solid var(--text-color);
+  border-radius: 4px;
+  padding: 8px 0;
+  -webkit-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+.buyBtnDisabled {
+  opacity: 50%;
+}
+.buyButton:active {
+  box-shadow: 0 0 10px #dee2e633;
+  background: var(--text-color);
+  color: var(--background-color);
+}

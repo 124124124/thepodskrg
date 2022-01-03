@@ -1,0 +1,10 @@
+.container {
+  padding: 16px;
+}
+.notFound {
+  grid-column: 1/3;
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin: 10px 0;
+}
