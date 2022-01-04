@@ -9,7 +9,7 @@ import Login from "./Login/Login";
 
 const App: React.FC = () => {
   const routes = [
-    { path: "/posts", element: <Posts /> },
+    { path: "/", element: <Posts /> },
     { path: "/login", element: <Login /> },
     { path: "*", element: <Error404 /> },
   ];

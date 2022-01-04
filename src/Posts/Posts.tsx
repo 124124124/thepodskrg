@@ -9,7 +9,8 @@ import Loading from "../Loading/Loading";
 const Posts: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const { posts } = useCtx();
+  const { posts, changeAuth } = useCtx();
+  const { isAuth } = changeAuth;
   const [search, setSearch] = useState<string>("");
 
   const filtredPosts = () =>
@@ -29,6 +30,7 @@ const Posts: React.FC = () => {
         <Loading />
       ) : (
         <div className={styles.container}>
+          {isAuth ? <div> Вы Админ </div> : ""}
           <PostsSearch setSearch={setSearch} search={search} />
           <PostsList>
             {filtredPosts()?.length ? (

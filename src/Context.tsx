@@ -1,7 +1,19 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface IContext {
   posts: IPosts[];
+  authData: IAuth;
+  changeAuth: any;
+  isLogin: boolean;
+}
+interface IAuth {
+  username?: string | any;
+  password?: string | any;
 }
 interface IPosts {
   id: number;
@@ -14,6 +26,29 @@ const Context = createContext<Partial<IContext>>({});
 const useCtx = () => useContext(Context);
 
 const AppProvider: React.FC = ({ children }) => {
+  const [authData] = useState<IAuth>({
+    username: "zharyq",
+    password: "123456zh",
+  });
+
+  const [isAuth, setAuth] = useState<boolean>(false);
+  const changeAuth = { isAuth, setAuth };
+
+  const [data, setData] = useState<IAuth>({
+    username: "",
+    password: "",
+  });
+
+  const isLoginned =
+    data?.username === authData.username ? true : false;
+
+  useEffect(() => {
+    setData({
+      username: localStorage.getItem("username"),
+      password: localStorage.getItem("password"),
+    });
+    setAuth(isLoginned);
+  }, [isLoginned]);
 
   const [posts] = useState<IPosts[]>([
     {
@@ -45,8 +80,10 @@ const AppProvider: React.FC = ({ children }) => {
   ]);
 
   return (
-    <Context.Provider value={{ posts }}>{children}</Context.Provider>
+    <Context.Provider value={{ posts, changeAuth, authData }}>
+      {children}
+    </Context.Provider>
   );
 };
 
-export { AppProvider, useCtx, IPosts };
+export { AppProvider, useCtx, IPosts, IAuth };
