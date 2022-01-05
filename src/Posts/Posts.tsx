@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useCtx } from "../Context";
+import { useCtx } from "../Context/Context";
 import styles from "./Posts.module.css";
 import PostsList from "./PostsList";
 import PostsSearch from "./PostsSearch";
 import PostsItem from "./PostsItem";
 import Loading from "../Loading/Loading";
+import { useLoginCtx } from "../Context/LoginContext";
 
 const Posts: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const { posts, changeAuth } = useCtx();
-  const { isAuth } = changeAuth;
+  const { posts } = useCtx();
   const [search, setSearch] = useState<string>("");
 
   const filtredPosts = () =>
@@ -23,6 +23,8 @@ const Posts: React.FC = () => {
       setLoading(false);
     }, 1000);
   });
+
+  const { isAuth } = useLoginCtx();
 
   return (
     <React.Fragment>

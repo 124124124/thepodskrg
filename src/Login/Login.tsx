@@ -1,44 +1,60 @@
 import React, { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { useCtx } from "../Context";
+import { useLoginCtx } from "../Context/LoginContext";
 import styles from "./Login.module.css";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 const Login: React.FC = () => {
-  const { authData, changeAuth } = useCtx();
+  const [passVisible, setPassVisble] = useState(false);
 
-  const { isAuth, setAuth } = changeAuth;
+  const [classnames, setClassNames] = useState(styles.input);
+
+  const { validUserData, removeLocalAndCookie, saveCookies, isAuth } =
+    useLoginCtx();
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const auth = (event: FormEvent) => {
+  const isValidUserData = (event: FormEvent) => {
     event.preventDefault();
-
     if (
-      username === authData?.username &&
-      password === authData?.password
+      username === validUserData?.username &&
+      password === validUserData?.password
     ) {
-      setAuth(true);
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", username);
+      saveCookies(username, password);
+    } else {
+      setClassNames((prev) => `${prev} ${styles.error}`);
     }
-  };
-
-  const exit = () => {
-    localStorage.clear();
-    setAuth(false);
   };
 
   if (isAuth) {
     return (
-      <div>
-        <div className="title">Вы Админ</div>
-        <button onClick={exit}>Выйти</button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "20px 0",
+        }}
+      >
+        <div className={styles.status}>Статус: Админ</div>
+        <div className={styles.buttons}>
+          <input
+            className={styles.submit}
+            type="submit"
+            value="Выйти"
+            onClick={removeLocalAndCookie}
+          />
+          <Link className={styles.submit} to="/">
+            Посты
+          </Link>
+        </div>
       </div>
     );
   } else {
     return (
       <form
-        onSubmit={(event: FormEvent) => auth(event)}
+        onSubmit={(event: FormEvent) => isValidUserData(event)}
         className={styles.container}
         onChange={(e: any) => {
           e.target.name === "username"
@@ -46,10 +62,55 @@ const Login: React.FC = () => {
             : setPassword(e.target.value);
         }}
       >
-        <input type="text" name="username" placeholder="Username" />
-        <input type="text" name="password" placeholder="Password" />
-        <input type="submit" value="Войти" />
-        <Link to="/">Посты</Link>
+        <input
+          onChange={() => setClassNames(styles.input)}
+          className={classnames}
+          type="text"
+          name="username"
+          placeholder="Имя пользователя"
+          autoComplete="off"
+          maxLength={16}
+        />
+        <div className={styles.password}>
+          <input
+            maxLength={32}
+            autoComplete="off"
+            onChange={() => setClassNames(styles.input)}
+            className={classnames}
+            type={passVisible ? "text" : "password"}
+            name="password"
+            placeholder="Пароль"
+          />
+          <div
+            className={styles.toggle}
+            onClick={() =>
+              passVisible ? setPassVisble(false) : setPassVisble(true)
+            }
+          >
+            {passVisible ? (
+              <EyeOffIcon style={{ height: "22px" }} />
+            ) : (
+              <EyeIcon style={{ height: "22px" }} />
+            )}
+          </div>
+        </div>
+        {classnames.includes(styles.error) ? (
+          <div className={styles.errorMessage}>
+            Имя пользователя или пароль неверный!
+          </div>
+        ) : (
+          ""
+        )}
+        <div className={styles.buttons}>
+          <input
+            className={styles.submit}
+            type="submit"
+            value="Войти"
+          />
+          <Link className={styles.submit} to="/">
+            Посты
+          </Link>
+        </div>
       </form>
     );
   }

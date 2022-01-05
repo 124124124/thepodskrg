@@ -1,3 +1,90 @@
 .container {
-  
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  border-radius: 5px;
+  outline: none;
+  background: none;
+  margin: 4px 0;
+  border: 2px solid var(--text-color);
+  -webkit-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+  padding: 9px 13px;
+  color: var(--text-color);
+  font-size: 17px;
+}
+.input:focus {
+  -webkit-box-shadow: 0 0 14px #dee2e633;
+  box-shadow: 0 0 14px #dee2e633;
+}
+
+.password {
+  position: relative;
+}
+.passwordInput {
+  border-radius: 5px;
+  outline: none;
+  background: none;
+  margin: 4px 0;
+  border: 2px solid var(--text-color);
+  -webkit-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+  padding: 9px 13px;
+  color: var(--text-color);
+  font-size: 17px;
+}
+.toggle {
+  transition: 0.2s ease-out;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.submit {
+  color: var(--text-color);
+  cursor: initial;
+  width: 120px;
+  margin: 0 10px;
+  font-weight: 500;
+  font-size: 15px;
+  background: none;
+  text-decoration: none;
+  user-select: none;
+  border: 2px solid var(--text-color);
+  border-radius: 4px;
+  padding: 8px 0;
+  transition: 0.2s ease-out;
+  text-align: center;
+}
+.submit:active {
+  box-shadow: 0 0 10px #dee2e633;
+  background: var(--text-color);
+  color: var(--background-color);
+}
+
+.buttons {
+  margin: 15px 0 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  border-color: #ef476f;
+}
+.errorMessage {
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+.status {
+  font-weight: 700;
+  font-size: 24px;
 }

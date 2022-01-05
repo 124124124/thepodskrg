@@ -1,5 +1,5 @@
 import React from "react";
-import { IPosts } from "../Context";
+import { IPosts } from "../Context/Context";
 import styles from "./PostsItem.module.css";
 
 const PostsItem: React.FC<IPosts> = ({
